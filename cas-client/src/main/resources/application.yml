@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sso?useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: www.kfyty.com
+    initial-size: 5
+    min-idle: 5
+    max-active: 100
+    keep-alive: true
+    min-evictable-idle-time-millis: 28740000
+    max-evictable-idle-time-millis: 28800000
+
+cas:
+  client:
+    host: http://127.0.0.1:${server.port}
+    loginUrl: ${cas.client.host}/login
+    logoutUrl: ${cas.client.host}/logout
+    logoutSuccessUrl: ${cas.client.host}/logoutSuccess
+
+  server:
+    host: http://127.0.0.1:8443
+    prefix: ${cas.server.host}/sso
+    loginUrl: ${cas.server.prefix}/login
+    logoutUrl: ${cas.server.prefix}/logout

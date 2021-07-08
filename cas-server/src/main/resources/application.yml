@@ -1,0 +1,49 @@
+# spring 相关配置
+server:
+  port: 8443
+  context-path: /sso
+  tomcat:
+    uri-encoding: UTF-8
+
+  session:
+    timeout: 300
+    tracking-modes: COOKIE
+    cookie:
+      http-only: true
+
+endpoints:
+  enabled: false
+  sensitive: true
+  restart:
+    enabled: false
+  shutdown:
+    enabled: false
+
+spring:
+  aop:
+    auto: true
+    proxy-target-class: true
+
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+
+  thymeleaf:
+    encoding: UTF-8
+    cache: true
+    mode: HTML
+    template-resolver-order: 100
+
+cas:
+  authn:
+    jdbc:
+      query:
+        - url: jdbc:mysql://localhost:3306/sso?useSSL=false&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8
+          driverClass: com.mysql.cj.jdbc.Driver
+          dialect: org.hibernate.dialect.MySQL8Dialect
+          user: root
+          password: www.kfyty.com
+          sql: select password from user where username = ?
+          fieldPassword: password
