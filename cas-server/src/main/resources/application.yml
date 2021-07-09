@@ -39,11 +39,14 @@ spring:
 cas:
   authn:
     jdbc:
-      query:
+      encode:
         - url: jdbc:mysql://localhost:3306/sso?useSSL=false&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8
           driverClass: com.mysql.cj.jdbc.Driver
           dialect: org.hibernate.dialect.MySQL8Dialect
           user: root
           password: www.kfyty.com
-          sql: select password from user where username = ?
-          fieldPassword: password
+          sql: select username, password, salt from user where username = ?
+          passwordFieldName: password
+          saltFieldName: salt
+          numberOfIterations: 3
+          algorithmName: MD5
